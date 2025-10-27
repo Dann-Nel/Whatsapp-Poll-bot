@@ -1,0 +1,14 @@
+{
+  "group_name": "Quintin & Nikita’s Community",
+  "poll_question": "Need Lift? Please try and keep the poll up to date",
+  "poll_options": [
+    "I need a lift for 1 person",
+    "I need a lift for 2 people",
+    "I need a lift for 3 people ",
+    "I need a lift for 4 people",
+    "I am sorted with a lift"
+  ],
+  "schedule_day": "monday",
+  "schedule_time": "09:00",
+  "chromedriver_path": "./chromedriver.exe"
+}

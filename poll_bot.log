@@ -1,0 +1,626 @@
+2025-10-25 18:42:14,715 - INFO - --- Script started, sending poll now ---
+2025-10-25 18:42:14,715 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 18:42:16,854 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 18:42:47,819 - INFO - WhatsApp loaded successfully.
+2025-10-25 18:42:47,820 - INFO - Searching for group: test
+2025-10-25 18:42:48,288 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 18:42:50,288 - INFO - Waiting to click group: test
+2025-10-25 18:42:51,413 - INFO - Opened chat for test.
+2025-10-25 18:42:51,413 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 18:42:51,594 - INFO - Chat is ready.
+2025-10-25 18:42:51,594 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 18:42:51,832 - INFO - Waiting for 'Poll' button...
+2025-10-25 18:42:52,492 - INFO - Opened the poll creation menu.
+2025-10-25 18:42:52,492 - INFO - Waiting for 'Question' input box...
+2025-10-25 18:42:52,720 - INFO - Entered poll question: Lift check!
+2025-10-25 18:42:52,720 - INFO - Filling in poll options...
+2025-10-25 18:42:53,114 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 18:42:53,430 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 18:42:53,756 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 18:42:54,147 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 18:42:54,479 - INFO - Entered option 5: Got my lift!
+2025-10-25 18:42:54,479 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 18:43:24,616 - ERROR - A TIMEOUT OCCURRED. The script could not find a button. WhatsApp may have updated.
+2025-10-25 18:43:24,616 - INFO - Script finished. The browser window will remain open.
+2025-10-25 18:43:24,616 - INFO - --- Script finished ---
+2025-10-25 18:49:30,398 - INFO - --- Script started, sending poll now ---
+2025-10-25 18:49:30,398 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 18:49:32,575 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 18:49:37,313 - INFO - WhatsApp loaded successfully.
+2025-10-25 18:49:37,313 - INFO - Searching for group: test
+2025-10-25 18:49:37,808 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 18:49:39,808 - INFO - Waiting to click group: test
+2025-10-25 18:49:40,035 - INFO - Opened chat for test.
+2025-10-25 18:49:40,035 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 18:49:40,337 - INFO - Chat is ready.
+2025-10-25 18:49:40,337 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 18:49:40,505 - INFO - Waiting for 'Poll' button...
+2025-10-25 18:49:41,119 - INFO - Opened the poll creation menu.
+2025-10-25 18:49:41,119 - INFO - Waiting for 'Question' input box...
+2025-10-25 18:49:41,252 - INFO - Entered poll question: Lift check!
+2025-10-25 18:49:41,252 - INFO - Filling in poll options...
+2025-10-25 18:49:41,495 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 18:49:41,719 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 18:49:42,107 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 18:49:42,369 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 18:49:42,534 - INFO - Entered option 5: Got my lift!
+2025-10-25 18:49:42,534 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 18:49:42,605 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 18:49:42,605 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 18:50:13,048 - ERROR - A TIMEOUT OCCURRED. The script could not find a button. WhatsApp may have updated.
+2025-10-25 18:50:13,048 - INFO - Script finished. The browser window will remain open.
+2025-10-25 18:50:13,048 - INFO - --- Script finished ---
+2025-10-25 18:50:25,959 - INFO - --- Script started, sending poll now ---
+2025-10-25 18:50:25,959 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 18:50:27,880 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 18:50:32,703 - INFO - WhatsApp loaded successfully.
+2025-10-25 18:50:32,703 - INFO - Searching for group: test
+2025-10-25 18:50:33,220 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 18:50:35,220 - INFO - Waiting to click group: test
+2025-10-25 18:50:35,435 - INFO - Opened chat for test.
+2025-10-25 18:50:35,435 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 18:50:35,807 - INFO - Chat is ready.
+2025-10-25 18:50:35,807 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 18:50:35,935 - INFO - Waiting for 'Poll' button...
+2025-10-25 18:50:36,578 - INFO - Opened the poll creation menu.
+2025-10-25 18:50:36,578 - INFO - Waiting for 'Question' input box...
+2025-10-25 18:50:36,710 - INFO - Entered poll question: Lift check!
+2025-10-25 18:50:36,710 - INFO - Filling in poll options...
+2025-10-25 18:50:36,926 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 18:50:37,127 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 18:50:37,367 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 18:50:37,682 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 18:50:37,805 - INFO - Entered option 5: Got my lift!
+2025-10-25 18:50:37,806 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 18:50:37,889 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 18:50:37,890 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 18:50:37,969 - INFO - *************************
+2025-10-25 18:50:37,969 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 18:50:37,969 - INFO - *************************
+2025-10-25 18:50:37,969 - INFO - Script finished. The browser window will remain open.
+2025-10-25 18:50:37,970 - INFO - --- Script finished ---
+2025-10-25 18:54:36,082 - INFO - --- Scheduler starting ---
+2025-10-25 18:54:36,083 - INFO - Poll scheduled for every saturday at 18:56.
+2025-10-25 18:56:00,112 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 18:56:02,332 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 18:56:06,361 - INFO - WhatsApp loaded successfully.
+2025-10-25 18:56:06,361 - INFO - Searching for group: test
+2025-10-25 18:56:06,702 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 18:56:08,703 - INFO - Waiting to click group: test
+2025-10-25 18:56:08,924 - INFO - Opened chat for test.
+2025-10-25 18:56:08,924 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 18:56:09,202 - INFO - Chat is ready.
+2025-10-25 18:56:09,202 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 18:56:09,366 - INFO - Waiting for 'Poll' button...
+2025-10-25 18:56:09,984 - INFO - Opened the poll creation menu.
+2025-10-25 18:56:09,984 - INFO - Waiting for 'Question' input box...
+2025-10-25 18:56:10,133 - INFO - Entered poll question: Lift check!
+2025-10-25 18:56:10,133 - INFO - Filling in poll options...
+2025-10-25 18:56:10,368 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 18:56:10,611 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 18:56:10,869 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 18:56:11,155 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 18:56:11,327 - INFO - Entered option 5: Got my lift!
+2025-10-25 18:56:11,327 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 18:56:11,400 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 18:56:11,400 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 18:56:11,485 - INFO - *************************
+2025-10-25 18:56:11,485 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 18:56:11,485 - INFO - *************************
+2025-10-25 18:56:11,485 - INFO - Closing the browser.
+2025-10-25 18:56:13,902 - INFO - Poll sending task finished.
+2025-10-25 18:57:30,803 - INFO - --- Scheduler starting ---
+2025-10-25 18:57:30,803 - INFO - Poll scheduled for every saturday at 18:58.
+2025-10-25 18:58:00,815 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 18:58:03,031 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 18:58:09,461 - INFO - WhatsApp loaded successfully.
+2025-10-25 18:58:09,461 - INFO - Searching for group: test
+2025-10-25 18:58:10,016 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 18:58:12,016 - INFO - Waiting to click group: test
+2025-10-25 18:58:12,329 - INFO - Opened chat for test.
+2025-10-25 18:58:12,329 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 18:58:12,684 - INFO - Chat is ready.
+2025-10-25 18:58:12,684 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 18:58:12,828 - INFO - Waiting for 'Poll' button...
+2025-10-25 18:58:13,462 - INFO - Opened the poll creation menu.
+2025-10-25 18:58:13,462 - INFO - Waiting for 'Question' input box...
+2025-10-25 18:58:13,645 - INFO - Entered poll question: Lift check!
+2025-10-25 18:58:13,645 - INFO - Filling in poll options...
+2025-10-25 18:58:13,947 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 18:58:14,208 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 18:58:14,498 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 18:58:14,846 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 18:58:15,058 - INFO - Entered option 5: Got my lift!
+2025-10-25 18:58:15,058 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 18:58:15,166 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 18:58:15,167 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 18:58:15,291 - INFO - *************************
+2025-10-25 18:58:15,291 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 18:58:15,291 - INFO - *************************
+2025-10-25 18:58:15,291 - INFO - Closing the browser.
+2025-10-25 18:58:17,730 - INFO - Poll sending task finished.
+2025-10-25 18:59:49,110 - INFO - --- Scheduler starting ---
+2025-10-25 18:59:49,110 - INFO - Poll scheduled for every saturday at 19:00.
+2025-10-25 19:00:00,115 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:00:02,194 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:00:07,068 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:00:07,068 - INFO - Searching for group: test
+2025-10-25 19:00:07,602 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:00:09,602 - INFO - Waiting to click group: test
+2025-10-25 19:00:09,818 - INFO - Opened chat for test.
+2025-10-25 19:00:09,818 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:00:10,107 - INFO - Chat is ready.
+2025-10-25 19:00:10,107 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:00:10,220 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:00:10,854 - INFO - Opened the poll creation menu.
+2025-10-25 19:00:10,854 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:00:11,000 - INFO - Entered poll question: Lift check!
+2025-10-25 19:00:11,000 - INFO - Filling in poll options...
+2025-10-25 19:00:11,221 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 19:00:11,439 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 19:00:11,636 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 19:00:11,861 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 19:00:11,982 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:00:11,982 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:00:12,057 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:00:12,057 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:00:12,141 - INFO - *************************
+2025-10-25 19:00:12,141 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:00:12,141 - INFO - *************************
+2025-10-25 19:00:12,141 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:00:14,141 - INFO - Closing the browser.
+2025-10-25 19:00:16,581 - INFO - Poll sending task finished.
+2025-10-25 19:00:40,353 - INFO - --- Scheduler starting ---
+2025-10-25 19:00:40,353 - INFO - Poll scheduled for every saturday at 19:01.
+2025-10-25 19:01:00,362 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:01:02,545 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:01:07,577 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:01:07,577 - INFO - Searching for group: Kea M
+2025-10-25 19:01:08,117 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:01:10,118 - INFO - Waiting to click group: Kea M
+2025-10-25 19:01:10,334 - INFO - Opened chat for Kea M.
+2025-10-25 19:01:10,334 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:01:10,585 - INFO - Chat is ready.
+2025-10-25 19:01:10,585 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:01:10,731 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:01:11,351 - INFO - Opened the poll creation menu.
+2025-10-25 19:01:11,352 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:01:11,466 - INFO - Entered poll question: Lift check!
+2025-10-25 19:01:11,466 - INFO - Filling in poll options...
+2025-10-25 19:01:11,658 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 19:01:11,883 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 19:01:12,191 - INFO - Entered option 3: I need a lift for 3 people
+2025-10-25 19:01:12,402 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 19:01:12,545 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:01:12,545 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:01:12,609 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:01:12,609 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:01:12,688 - INFO - *************************
+2025-10-25 19:01:12,689 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:01:12,689 - INFO - *************************
+2025-10-25 19:01:12,689 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:01:14,689 - INFO - Closing the browser.
+2025-10-25 19:01:17,025 - INFO - Poll sending task finished.
+2025-10-25 19:02:25,964 - INFO - --- Scheduler starting ---
+2025-10-25 19:02:25,964 - INFO - Poll scheduled for every saturday at 19:03.
+2025-10-25 19:03:00,977 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:03:03,144 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:03:08,054 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:03:08,054 - INFO - Searching for group: test
+2025-10-25 19:03:08,580 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:03:10,581 - INFO - Waiting to click group: test
+2025-10-25 19:03:10,799 - INFO - Opened chat for test.
+2025-10-25 19:03:10,799 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:03:11,129 - INFO - Chat is ready.
+2025-10-25 19:03:11,130 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:03:11,242 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:03:11,903 - INFO - Opened the poll creation menu.
+2025-10-25 19:03:11,903 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:03:12,043 - INFO - Entered poll question: Lift check!
+2025-10-25 19:03:12,043 - INFO - Filling in poll options...
+2025-10-25 19:03:12,178 - INFO - Entered option 1: Just me 
+2025-10-25 19:03:12,343 - INFO - Entered option 2: Me + 1 (2 people)
+2025-10-25 19:03:12,501 - INFO - Entered option 3: Me + 2 (3 people)
+2025-10-25 19:03:12,678 - INFO - Entered option 4: Me + 3 (4+ people)
+2025-10-25 19:03:12,811 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:03:12,811 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:03:12,876 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:03:12,876 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:03:12,964 - INFO - *************************
+2025-10-25 19:03:12,965 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:03:12,965 - INFO - *************************
+2025-10-25 19:03:12,965 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:03:14,965 - INFO - Closing the browser.
+2025-10-25 19:03:17,265 - INFO - Poll sending task finished.
+2025-10-25 19:04:14,639 - INFO - --- Scheduler starting ---
+2025-10-25 19:04:14,640 - INFO - Poll scheduled for every saturday at 19:05.
+2025-10-25 19:05:00,661 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:05:02,855 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:05:08,633 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:05:08,633 - INFO - Searching for group: test
+2025-10-25 19:05:09,114 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:05:11,115 - INFO - Waiting to click group: test
+2025-10-25 19:05:11,339 - INFO - Opened chat for test.
+2025-10-25 19:05:11,339 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:05:11,670 - INFO - Chat is ready.
+2025-10-25 19:05:11,671 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:05:11,858 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:05:12,473 - INFO - Opened the poll creation menu.
+2025-10-25 19:05:12,473 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:05:12,606 - INFO - Entered poll question: Lift check!
+2025-10-25 19:05:12,606 - INFO - Filling in poll options...
+2025-10-25 19:05:12,833 - INFO - Entered option 1: Just me that needs a lift 
+2025-10-25 19:05:13,120 - INFO - Entered option 2: Me + 1 (2 people that needs a lift)
+2025-10-25 19:05:13,432 - INFO - Entered option 3: Me + 2 (3 people that needs a ;oft)
+2025-10-25 19:05:13,788 - INFO - Entered option 4: Me + 3 (4+ people that needs a lift)
+2025-10-25 19:05:13,950 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:05:13,950 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:05:14,022 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:05:14,023 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:05:14,119 - INFO - *************************
+2025-10-25 19:05:14,119 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:05:14,119 - INFO - *************************
+2025-10-25 19:05:14,119 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:05:16,119 - INFO - Closing the browser.
+2025-10-25 19:05:18,436 - INFO - Poll sending task finished.
+2025-10-25 19:06:12,197 - INFO - --- Scheduler starting ---
+2025-10-25 19:06:12,198 - INFO - Poll scheduled for every saturday at 19:07.
+2025-10-25 19:07:00,217 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:07:02,270 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:07:07,596 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:07:07,596 - INFO - Searching for group: test
+2025-10-25 19:07:08,203 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:07:10,204 - INFO - Waiting to click group: test
+2025-10-25 19:07:10,430 - INFO - Opened chat for test.
+2025-10-25 19:07:10,430 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:07:10,756 - INFO - Chat is ready.
+2025-10-25 19:07:10,756 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:07:10,917 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:07:11,545 - INFO - Opened the poll creation menu.
+2025-10-25 19:07:11,545 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:07:11,888 - INFO - Entered poll question: Lift check,Please try and keep the poll up to date
+2025-10-25 19:07:11,888 - INFO - Filling in poll options...
+2025-10-25 19:07:12,103 - INFO - Entered option 1: Just me that needs a lift 
+2025-10-25 19:07:12,377 - INFO - Entered option 2: Me + 1 (2 people that needs a lift)
+2025-10-25 19:07:12,664 - INFO - Entered option 3: Me + 2 (3 people that needs a lift)
+2025-10-25 19:07:12,965 - INFO - Entered option 4: Me + 3 (4+ people that needs a lift)
+2025-10-25 19:07:13,134 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:07:13,135 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:07:13,208 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:07:13,208 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:07:13,301 - INFO - *************************
+2025-10-25 19:07:13,301 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:07:13,301 - INFO - *************************
+2025-10-25 19:07:13,301 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:07:15,302 - INFO - Closing the browser.
+2025-10-25 19:07:17,765 - INFO - Poll sending task finished.
+2025-10-25 19:08:26,124 - INFO - --- Scheduler starting ---
+2025-10-25 19:08:26,125 - INFO - Poll scheduled for every saturday at 19:09.
+2025-10-25 19:09:00,139 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:09:02,175 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:09:07,313 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:09:07,313 - INFO - Searching for group: Kea M
+2025-10-25 19:09:07,903 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:09:09,904 - INFO - Waiting to click group: Kea M
+2025-10-25 19:09:10,131 - INFO - Opened chat for Kea M.
+2025-10-25 19:09:10,131 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:09:10,471 - INFO - Chat is ready.
+2025-10-25 19:09:10,471 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:09:10,655 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:09:11,297 - INFO - Opened the poll creation menu.
+2025-10-25 19:09:11,297 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:09:11,623 - INFO - Entered poll question: Lift check,Please try and keep the poll up to date
+2025-10-25 19:09:11,623 - INFO - Filling in poll options...
+2025-10-25 19:09:11,859 - INFO - Entered option 1: Just me that needs a lift 
+2025-10-25 19:09:12,150 - INFO - Entered option 2: Me + 1 (2 people that needs a lift)
+2025-10-25 19:09:12,449 - INFO - Entered option 3: Me + 2 (3 people that needs a lift)
+2025-10-25 19:09:12,773 - INFO - Entered option 4: Me + 3 (4+ people that needs a lift)
+2025-10-25 19:09:12,916 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:09:12,916 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:09:13,003 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:09:13,003 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:09:13,091 - INFO - *************************
+2025-10-25 19:09:13,091 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:09:13,091 - INFO - *************************
+2025-10-25 19:09:13,091 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:09:15,091 - INFO - Closing the browser.
+2025-10-25 19:09:17,403 - INFO - Poll sending task finished.
+2025-10-25 19:14:44,085 - INFO - --- Scheduler starting ---
+2025-10-25 19:14:44,085 - INFO - Poll scheduled for every saturday at 19:09.
+2025-10-25 19:14:56,350 - INFO - --- Scheduler starting ---
+2025-10-25 19:14:56,351 - INFO - Poll scheduled for every saturday at 19:09.
+2025-10-25 19:15:12,084 - INFO - --- Scheduler starting ---
+2025-10-25 19:15:12,085 - INFO - Poll scheduled for every saturday at 19:09.
+2025-10-25 19:15:36,257 - INFO - --- Scheduler starting ---
+2025-10-25 19:15:36,257 - INFO - Poll scheduled for every saturday at 19:16.
+2025-10-25 19:16:00,266 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:16:02,511 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:16:07,643 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:16:07,643 - INFO - Searching for group: test
+2025-10-25 19:16:08,167 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:16:10,168 - INFO - Waiting to click group: test
+2025-10-25 19:16:10,388 - INFO - Opened chat for test.
+2025-10-25 19:16:10,388 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:16:10,725 - INFO - Chat is ready.
+2025-10-25 19:16:10,726 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:16:10,894 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:16:11,512 - INFO - Opened the poll creation menu.
+2025-10-25 19:16:11,512 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:16:11,849 - INFO - Entered poll question: Lift check,Please try and keep the poll up to date
+2025-10-25 19:16:11,849 - INFO - Filling in poll options...
+2025-10-25 19:16:12,059 - INFO - Entered option 1: Just me that needs a lift 
+2025-10-25 19:16:12,333 - INFO - Entered option 2: Me + 1 (2 people that needs a lift)
+2025-10-25 19:16:12,598 - INFO - Entered option 3: Me + 2 (3 people that needs a lift)
+2025-10-25 19:16:12,877 - INFO - Entered option 4: Me + 3 (4+ people that needs a lift)
+2025-10-25 19:16:13,011 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:16:13,011 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:16:13,090 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:16:13,090 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:16:13,176 - INFO - *************************
+2025-10-25 19:16:13,176 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:16:13,176 - INFO - *************************
+2025-10-25 19:16:13,176 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:16:15,176 - INFO - Closing the browser.
+2025-10-25 19:16:17,637 - INFO - Poll sending task finished.
+2025-10-25 19:17:26,338 - INFO - --- Scheduler starting ---
+2025-10-25 19:17:26,338 - INFO - Poll scheduled for every saturday at 19:18.
+2025-10-25 19:18:00,352 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:18:02,546 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:18:07,550 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:18:07,550 - INFO - Searching for group: test
+2025-10-25 19:18:07,924 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:18:09,925 - INFO - Waiting to click group: test
+2025-10-25 19:18:10,136 - INFO - Opened chat for test.
+2025-10-25 19:18:10,136 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:18:10,451 - INFO - Chat is ready.
+2025-10-25 19:18:10,451 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:18:10,639 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:18:11,252 - INFO - Opened the poll creation menu.
+2025-10-25 19:18:11,253 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:18:11,687 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-25 19:18:11,687 - INFO - Filling in poll options...
+2025-10-25 19:18:11,891 - INFO - Entered option 1: Just me that needs a lift 
+2025-10-25 19:18:12,132 - INFO - Entered option 2: Me + 1 (2 people that needs a lift)
+2025-10-25 19:18:12,425 - INFO - Entered option 3: Me + 2 (3 people that needs a lift)
+2025-10-25 19:18:12,688 - INFO - Entered option 4: Me + 3 (4+ people that needs a lift)
+2025-10-25 19:18:12,820 - INFO - Entered option 5: Got my lift!
+2025-10-25 19:18:12,821 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:18:12,943 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:18:12,943 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:18:13,032 - INFO - *************************
+2025-10-25 19:18:13,032 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:18:13,032 - INFO - *************************
+2025-10-25 19:18:13,033 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:18:15,033 - INFO - Closing the browser.
+2025-10-25 19:18:17,558 - INFO - Poll sending task finished.
+2025-10-25 19:21:42,226 - INFO - --- Scheduler starting ---
+2025-10-25 19:21:42,227 - INFO - Poll scheduled for every saturday at 19:22.
+2025-10-25 19:22:00,233 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:22:02,419 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:22:07,313 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:22:07,313 - INFO - Searching for group: test
+2025-10-25 19:22:07,607 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:22:09,608 - INFO - Waiting to click group: test
+2025-10-25 19:22:09,829 - INFO - Opened chat for test.
+2025-10-25 19:22:09,829 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:22:09,908 - INFO - Chat is ready.
+2025-10-25 19:22:09,908 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:22:10,382 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:22:11,000 - INFO - Opened the poll creation menu.
+2025-10-25 19:22:11,000 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:22:11,510 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-25 19:22:11,510 - INFO - Filling in poll options...
+2025-10-25 19:22:11,729 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 19:22:11,988 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 19:22:12,233 - INFO - Entered option 3: I need a lift for 3 people 
+2025-10-25 19:22:12,502 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 19:22:12,862 - INFO - Entered option 5: I need a lift for 5 or more people
+2025-10-25 19:22:13,025 - INFO - Entered option 6: Got my lift!
+2025-10-25 19:22:13,025 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:22:13,190 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:22:13,190 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:22:13,285 - INFO - *************************
+2025-10-25 19:22:13,285 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:22:13,285 - INFO - *************************
+2025-10-25 19:22:13,285 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:22:15,285 - INFO - Closing the browser.
+2025-10-25 19:22:17,723 - INFO - Poll sending task finished.
+2025-10-25 19:23:26,321 - INFO - --- Scheduler starting ---
+2025-10-25 19:23:26,321 - INFO - Poll scheduled for every saturday at 19:24.
+2025-10-25 19:24:00,334 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:24:02,545 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:24:07,517 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:24:07,517 - INFO - Searching for group: test
+2025-10-25 19:24:08,160 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:24:10,161 - INFO - Waiting to click group: test
+2025-10-25 19:24:10,400 - INFO - Opened chat for test.
+2025-10-25 19:24:10,400 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:24:10,812 - INFO - Chat is ready.
+2025-10-25 19:24:10,812 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:24:10,950 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:24:11,559 - INFO - Opened the poll creation menu.
+2025-10-25 19:24:11,559 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:24:12,110 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-25 19:24:12,110 - INFO - Filling in poll options...
+2025-10-25 19:24:12,314 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 19:24:12,534 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 19:24:12,754 - INFO - Entered option 3: I need a lift for 3 people 
+2025-10-25 19:24:12,988 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 19:24:13,302 - INFO - Entered option 5: I need a lift for 5 or more people
+2025-10-25 19:24:13,568 - INFO - Entered option 6: Sorted with a lift(s) 
+2025-10-25 19:24:13,569 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:24:13,730 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:24:13,730 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:24:13,820 - INFO - *************************
+2025-10-25 19:24:13,820 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:24:13,820 - INFO - *************************
+2025-10-25 19:24:13,820 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:24:15,821 - INFO - Closing the browser.
+2025-10-25 19:24:18,237 - INFO - Poll sending task finished.
+2025-10-25 19:24:55,587 - INFO - --- Scheduler starting ---
+2025-10-25 19:24:55,587 - INFO - Poll scheduled for every saturday at 19:25.
+2025-10-25 19:25:00,590 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:25:12,449 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:25:12,451 - ERROR - An unexpected error occurred: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=141.0.7390.123)
+Stacktrace:
+	GetHandleVerifier [0x0x74fe83+66515]
+	GetHandleVerifier [0x0x74fec4+66580]
+	(No symbol) [0x0x53dc48]
+	(No symbol) [0x0x51c18d]
+	(No symbol) [0x0x5b1a4e]
+	(No symbol) [0x0x5cc4d9]
+	(No symbol) [0x0x5aafc6]
+	(No symbol) [0x0x57c2ca]
+	(No symbol) [0x0x57d154]
+	GetHandleVerifier [0x0x9a73b3+2521347]
+	GetHandleVerifier [0x0x9a2333+2500739]
+	GetHandleVerifier [0x0x777cd4+229924]
+	GetHandleVerifier [0x0x768238+165768]
+	GetHandleVerifier [0x0x76eced+193085]
+	GetHandleVerifier [0x0x758198+100072]
+	GetHandleVerifier [0x0x758330+100480]
+	GetHandleVerifier [0x0x7425ea+11066]
+	BaseThreadInitThunk [0x0x75245d49+25]
+	RtlInitializeExceptionChain [0x0x7781d6db+107]
+	RtlGetAppContainerNamedObjectPath [0x0x7781d661+561]
+
+2025-10-25 19:25:12,451 - INFO - Closing the browser.
+2025-10-25 19:25:27,293 - INFO - --- Scheduler starting ---
+2025-10-25 19:25:27,294 - INFO - Poll scheduled for every saturday at 19:26.
+2025-10-25 19:26:00,306 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-25 19:26:02,379 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-25 19:26:07,400 - INFO - WhatsApp loaded successfully.
+2025-10-25 19:26:07,400 - INFO - Searching for group: test
+2025-10-25 19:26:07,946 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-25 19:26:09,947 - INFO - Waiting to click group: test
+2025-10-25 19:26:10,172 - INFO - Opened chat for test.
+2025-10-25 19:26:10,172 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-25 19:26:10,584 - INFO - Chat is ready.
+2025-10-25 19:26:10,584 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-25 19:26:10,743 - INFO - Waiting for 'Poll' button...
+2025-10-25 19:26:11,357 - INFO - Opened the poll creation menu.
+2025-10-25 19:26:11,357 - INFO - Waiting for 'Question' input box...
+2025-10-25 19:26:11,849 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-25 19:26:11,849 - INFO - Filling in poll options...
+2025-10-25 19:26:12,041 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-25 19:26:12,254 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-25 19:26:12,517 - INFO - Entered option 3: I need a lift for 3 people 
+2025-10-25 19:26:12,805 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-25 19:26:13,134 - INFO - Entered option 5: I need a lift for 5 or more people
+2025-10-25 19:26:13,379 - INFO - Entered option 6: I am sorted with a lift
+2025-10-25 19:26:13,379 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-25 19:26:13,526 - INFO - Unticked 'Allow multiple answers'.
+2025-10-25 19:26:13,526 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-25 19:26:13,621 - INFO - *************************
+2025-10-25 19:26:13,621 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-25 19:26:13,621 - INFO - *************************
+2025-10-25 19:26:13,621 - INFO - Waiting 2 seconds before closing...
+2025-10-25 19:26:15,622 - INFO - Closing the browser.
+2025-10-25 19:26:18,031 - INFO - Poll sending task finished.
+2025-10-25 19:27:25,091 - INFO - --- Scheduler starting ---
+2025-10-25 19:27:25,091 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-25 19:35:51,193 - INFO - --- Scheduler starting ---
+2025-10-25 19:35:51,193 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-25 19:35:59,352 - INFO - --- Scheduler starting ---
+2025-10-25 19:35:59,352 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-25 19:42:39,690 - INFO - --- Scheduler starting ---
+2025-10-25 19:42:39,690 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-27 08:01:42,016 - INFO - --- Scheduler starting ---
+2025-10-27 08:01:42,018 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-27 08:02:23,941 - INFO - --- Scheduler starting ---
+2025-10-27 08:02:23,941 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-27 09:00:00,337 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-27 09:00:05,100 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-27 09:01:22,818 - INFO - WhatsApp loaded successfully.
+2025-10-27 09:01:22,818 - INFO - Searching for group: Quintin & Nikita’s Community
+2025-10-27 09:01:26,080 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-27 09:01:28,081 - INFO - Waiting to click group: Quintin & Nikita’s Community
+2025-10-27 09:01:29,859 - INFO - Opened chat for Quintin & Nikita’s Community.
+2025-10-27 09:01:29,859 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-27 09:01:30,108 - INFO - Chat is ready.
+2025-10-27 09:01:30,108 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-27 09:01:35,424 - INFO - Waiting for 'Poll' button...
+2025-10-27 09:01:38,392 - INFO - Opened the poll creation menu.
+2025-10-27 09:01:38,393 - INFO - Waiting for 'Question' input box...
+2025-10-27 09:01:40,313 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-27 09:01:40,313 - INFO - Filling in poll options...
+2025-10-27 09:01:41,352 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-27 09:01:48,253 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-27 09:01:49,319 - INFO - Entered option 3: I need a lift for 3 people 
+2025-10-27 09:01:50,310 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-27 09:01:52,636 - INFO - Entered option 5: I am sorted with a lift
+2025-10-27 09:01:52,636 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-27 09:01:53,380 - INFO - Unticked 'Allow multiple answers'.
+2025-10-27 09:01:53,380 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-27 09:01:53,777 - INFO - *************************
+2025-10-27 09:01:53,777 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-27 09:01:53,777 - INFO - *************************
+2025-10-27 09:01:53,778 - INFO - Waiting 2 seconds before closing...
+2025-10-27 09:01:55,779 - INFO - Closing the browser.
+2025-10-27 09:01:58,555 - INFO - Poll sending task finished.
+2025-10-27 09:13:46,891 - INFO - --- Scheduler starting ---
+2025-10-27 09:13:46,892 - INFO - Poll scheduled for every monday at 09:00.
+2025-10-27 09:13:59,744 - INFO - --- Scheduler starting ---
+2025-10-27 09:13:59,745 - INFO - Poll scheduled for every monday at 09:14.
+2025-10-27 09:14:00,746 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-27 09:14:03,702 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-27 09:14:10,732 - INFO - WhatsApp loaded successfully.
+2025-10-27 09:14:10,733 - INFO - Searching for group: Quintin & Nikita’s Community
+2025-10-27 09:14:11,917 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-27 09:14:13,918 - INFO - Waiting to click group: Quintin & Nikita’s Community
+2025-10-27 09:14:14,444 - INFO - Opened chat for Quintin & Nikita’s Community.
+2025-10-27 09:14:14,444 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-27 09:14:14,571 - INFO - Chat is ready.
+2025-10-27 09:14:14,571 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-27 09:14:15,938 - INFO - Waiting for 'Poll' button...
+2025-10-27 09:14:16,727 - INFO - Opened the poll creation menu.
+2025-10-27 09:14:16,728 - INFO - Waiting for 'Question' input box...
+2025-10-27 09:14:17,597 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-27 09:14:17,597 - INFO - Filling in poll options...
+2025-10-27 09:14:18,404 - INFO - Entered option 1: I need a lift for 1 person
+2025-10-27 09:14:18,868 - INFO - Entered option 2: I need a lift for 2 people
+2025-10-27 09:14:19,256 - INFO - Entered option 3: I need a lift for 3 people 
+2025-10-27 09:14:19,651 - INFO - Entered option 4: I need a lift for 4 people
+2025-10-27 09:14:19,990 - INFO - Entered option 5: I am sorted with a lift
+2025-10-27 09:14:19,990 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-27 09:14:20,256 - INFO - Unticked 'Allow multiple answers'.
+2025-10-27 09:14:20,256 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-27 09:14:20,443 - INFO - *************************
+2025-10-27 09:14:20,443 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-27 09:14:20,443 - INFO - *************************
+2025-10-27 09:14:20,443 - INFO - Waiting 2 seconds before closing...
+2025-10-27 09:14:22,444 - INFO - Closing the browser.
+2025-10-27 09:14:25,149 - INFO - Poll sending task finished.
+2025-10-27 09:20:29,874 - INFO - --- Scheduler starting ---
+2025-10-27 09:20:29,875 - INFO - Poll scheduled for every monday at 09:22.
+2025-10-27 09:22:00,914 - INFO - Starting the WhatsApp Poll Bot...
+2025-10-27 09:22:03,689 - INFO - Waiting for WhatsApp to load. Please scan the QR code if needed.
+2025-10-27 09:22:10,013 - INFO - WhatsApp loaded successfully.
+2025-10-27 09:22:10,014 - INFO - Searching for group: test
+2025-10-27 09:22:10,434 - INFO - Waiting 2 seconds for search results to appear...
+2025-10-27 09:22:12,435 - INFO - Waiting to click group: test
+2025-10-27 09:22:12,906 - INFO - Opened chat for test.
+2025-10-27 09:22:12,906 - INFO - Waiting for chat to be fully interactive (finding 'Type a message' box)...
+2025-10-27 09:22:13,071 - INFO - Chat is ready.
+2025-10-27 09:22:13,071 - INFO - Waiting for 'Attach' (plus) button...
+2025-10-27 09:22:14,206 - INFO - Waiting for 'Poll' button...
+2025-10-27 09:22:14,935 - INFO - Opened the poll creation menu.
+2025-10-27 09:22:14,935 - INFO - Waiting for 'Question' input box...
+2025-10-27 09:22:15,721 - INFO - Entered poll question: Need Lift? Please try and keep the poll up to date
+2025-10-27 09:22:15,722 - INFO - Filling in poll options...
+2025-10-27 09:22:15,934 - INFO - Entered option 1: test1
+2025-10-27 09:22:16,079 - INFO - Entered option 2: test2
+2025-10-27 09:22:16,248 - INFO - Entered option 3: test3
+2025-10-27 09:22:16,403 - INFO - Entered option 4: test4
+2025-10-27 09:22:16,602 - INFO - Entered option 5: test5
+2025-10-27 09:22:16,602 - INFO - Waiting for 'Allow multiple answers' toggle to be clickable...
+2025-10-27 09:22:16,921 - INFO - Unticked 'Allow multiple answers'.
+2025-10-27 09:22:16,921 - INFO - Waiting for 'Send' button to be clickable...
+2025-10-27 09:22:17,096 - INFO - *************************
+2025-10-27 09:22:17,097 - INFO - POLL SUCCESSFULLY SENT!
+2025-10-27 09:22:17,097 - INFO - *************************
+2025-10-27 09:22:17,097 - INFO - Waiting 2 seconds before closing...
+2025-10-27 09:22:19,098 - INFO - Closing the browser.
+2025-10-27 09:22:21,781 - INFO - Poll sending task finished.
