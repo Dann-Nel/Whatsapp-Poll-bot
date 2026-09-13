@@ -42,6 +42,9 @@ const LOG_PATH = path.join(__dirname, 'bot.log');
 // Pause between recipients of one fan-out, so a burst doesn't look like spam.
 const SEND_GAP_MS = 2000;
 
+// Linking costs one reconnect; a few more absorb a flaky mobile signal.
+const MAX_CONNECT_ATTEMPTS = 5;
+
 function log(message) {
     const line = `${new Date().toISOString()} - ${message}`;
     console.log(line);
@@ -124,7 +127,7 @@ function loadConfig() {
 
 /* ----------------------------- connection ----------------------------- */
 
-async function connect(config) {
+async function connect(config, attempt = 1) {
     const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
     const { version } = await fetchLatestBaileysVersion();
 
@@ -198,13 +201,37 @@ async function connect(config) {
                     return;
                 }
 
-                log(`Connection closed (${status ?? 'unknown reason'}), reconnecting...`);
                 if (settled) {
+                    log(`Connection closed (${status ?? 'unknown reason'}), reconnecting...`);
                     // Re-establish in the background so the scheduler keeps working.
                     connect(config)
                         .then((fresh) => { liveSocket = fresh; })
                         .catch((err) => log(`Reconnect failed: ${err.message}`));
+                    return;
                 }
+
+                // Closing *before* we ever opened is normal right after linking:
+                // WhatsApp asks for a restart to finish the handshake. Carry the
+                // retry's outcome into this promise, or the caller hangs forever
+                // and the phone sits on "Logging in..." indefinitely.
+                if (attempt >= MAX_CONNECT_ATTEMPTS) {
+                    settled = true;
+                    reject(new Error(
+                        `Could not establish a connection after ${MAX_CONNECT_ATTEMPTS} attempts ` +
+                        `(last reason: ${status ?? 'unknown'}). Try './poll reset' and link again.`
+                    ));
+                    return;
+                }
+
+                settled = true;
+                log(status === DisconnectReason.restartRequired
+                    ? 'Linked. Restarting the connection to finish logging in...'
+                    : `Connection closed before opening (${status ?? 'unknown reason'}), retrying...`);
+
+                // A moment's pause, so a genuine failure doesn't spin hot.
+                setTimeout(() => {
+                    connect(config, attempt + 1).then(resolve, reject);
+                }, 2000);
             }
         });
     });

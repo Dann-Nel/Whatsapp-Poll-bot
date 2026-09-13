@@ -159,6 +159,11 @@ the job and the problem, so typos never silently skip a send.
 - **Nothing sends while the screen is off** — run `termux-wake-lock`, and exempt
   Termux from battery optimisation in Android settings.
 - **"Logged out on the phone"** — you unlinked the device. Run `./poll groups` and re-link.
+- **WhatsApp sits on "Logging in..." forever** — the code was accepted, but the
+  bot must stay running to finish the handshake. Keep Termux alive
+  (`termux-wake-lock`, and exempt Termux from battery optimisation) while you
+  switch to WhatsApp. Expect the bot to log "Linked. Restarting the connection
+  to finish logging in..." followed by "Connected to WhatsApp."
 - **"Couldn't link device" when entering a pairing code** — the code expires in
   about a minute, so have WhatsApp open on the Enter-code screen *before* you
   run `./poll pair`. If it still fails, run `./poll reset` to clear any
