@@ -190,6 +190,8 @@ async function connect(config, attempt = 1) {
             }
 
             if (connection === 'close') {
+                if (shuttingDown) return;
+
                 const status = lastDisconnect?.error?.output?.statusCode;
 
                 if (status === DisconnectReason.loggedOut) {
@@ -239,6 +241,10 @@ async function connect(config, attempt = 1) {
 
 // Scheduled jobs read through this so they pick up post-reconnect sockets.
 let liveSocket = null;
+
+// Set when we close on purpose, so the close handler doesn't treat our own
+// shutdown as a dropped connection and reconnect a process that is exiting.
+let shuttingDown = false;
 
 /* ------------------------------ recipients ---------------------------- */
 
@@ -370,6 +376,7 @@ function selectJobs(jobs, wantedName) {
 async function closeAfterFlush(sock) {
     // Give WhatsApp a moment to flush outgoing messages before closing.
     await new Promise((resolve) => setTimeout(resolve, 3000));
+    shuttingDown = true;
     await sock.end();
 }
 
@@ -418,6 +425,7 @@ async function main() {
         const groups = await findGroups(sock);
         console.log('\nGroups this account can post to:');
         groups.forEach((g) => console.log(`  ${g.subject}`));
+        shuttingDown = true;
         await sock.end();
         return;
     }
