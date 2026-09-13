@@ -16,11 +16,30 @@ Install Termux **from F-Droid** (the Play Store build is outdated), open it, the
 ```bash
 pkg update && pkg upgrade -y
 pkg install -y nodejs-lts git
-git clone https://github.com/dann-nel/whatsapp-poll-bot.git
-cd whatsapp-poll-bot/mobile
+git clone --depth 1 -b claude/whatsapp-poll-bot-tx35r9 \
+  https://github.com/Dann-Nel/Whatsapp-Poll-bot.git
+cd Whatsapp-Poll-bot/mobile
 npm install
 termux-wake-lock        # stops Android killing the bot in the background
 ```
+
+> **The `-b claude/whatsapp-poll-bot-tx35r9` is required** while this code lives
+> on a branch — `main` has only the old Windows bot and no `mobile/` folder.
+> Once the branch is merged into `main`, drop the `-b` flag.
+
+Private repo? Termux will ask for your GitHub username and a
+[personal access token](https://github.com/settings/tokens) as the password —
+your normal account password won't work.
+
+### Updating later
+
+```bash
+cd ~/Whatsapp-Poll-bot && git pull && cd mobile && npm install
+```
+
+Your `config.json` is tracked by git, so if you've edited it a pull can
+conflict. Keep a copy of your jobs before pulling, or run
+`git stash && git pull && git stash pop`.
 
 ## Link your WhatsApp account (once)
 
