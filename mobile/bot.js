@@ -135,6 +135,7 @@ async function connect(config, attempt = 1) {
 
     // --pair beats config.json, so a personal number never has to be committed.
     const pairNumber = config.pairingNumberOverride || config.pairing_phone_number;
+    if (!state.creds.registered) freshLink = true;
     const usePairingCode = !state.creds.registered && Boolean(pairNumber);
 
     const sock = makeWASocket({
@@ -155,7 +156,11 @@ async function connect(config, attempt = 1) {
     const cacheContacts = (incoming) => {
         if (!incoming || incoming.length === 0) return;
         const cache = contactStore.load();
-        if (contactStore.merge(cache, incoming) > 0) contactStore.save(cache);
+        if (contactStore.merge(cache, incoming) > 0) {
+            contactStore.save(cache);
+            contactsSeen = Object.keys(cache).length;
+            lastContactAt = Date.now();
+        }
     };
     sock.ev.on('contacts.upsert', cacheContacts);
     sock.ev.on('contacts.update', cacheContacts);
@@ -258,6 +263,41 @@ let liveSocket = null;
 // Set when we close on purpose, so the close handler doesn't treat our own
 // shutdown as a dropped connection and reconnect a process that is exiting.
 let shuttingDown = false;
+
+// Progress of the contact sync, so waiting can stop as soon as it goes quiet.
+let contactsSeen = 0;
+let lastContactAt = 0;
+
+// True when this run linked the device rather than reusing a saved login -
+// the only time WhatsApp streams the address book.
+let freshLink = false;
+
+/**
+ * WhatsApp streams contacts only while syncing a newly linked device, and a
+ * full sync can take a while. Rather than guess a fixed delay, wait until the
+ * stream goes quiet - or until nothing has arrived at all.
+ */
+async function waitForContactSync({ maxMs = 90000, quietMs = 12000 } = {}) {
+    const start = Date.now();
+    let reported = 0;
+
+    while (Date.now() - start < maxMs) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        if (contactsSeen > reported) {
+            reported = contactsSeen;
+            log(`Synced ${reported} contacts so far...`);
+        }
+
+        // Quiet for a while after something arrived: the sync has finished.
+        if (lastContactAt && Date.now() - lastContactAt > quietMs) return contactsSeen;
+
+        // Nothing at all after a fair wait: this login isn't sending contacts.
+        if (!lastContactAt && Date.now() - start > 25000) return 0;
+    }
+
+    return contactsSeen;
+}
 
 /* ------------------------------ recipients ---------------------------- */
 
@@ -473,16 +513,21 @@ async function main() {
     liveSocket = sock;
 
     if (listContacts) {
-        // Contacts stream in just after connecting, so give the sync a moment.
-        log('Syncing contacts...');
-        await new Promise((resolve) => setTimeout(resolve, 8000));
+        log('Waiting for WhatsApp to send contacts (this can take a minute)...');
+        await waitForContactSync();
 
         const cache = contactStore.load();
         const names = Object.entries(cache).sort((a, b) => a[1].localeCompare(b[1]));
 
         if (names.length === 0) {
-            console.log('\nNo contacts synced. WhatsApp only sends them on some logins;');
-            console.log('try again, or just use phone numbers, which always work.');
+            console.log('\nNo contacts received.');
+            console.log('WhatsApp only streams your contacts while it syncs a NEWLY linked');
+            console.log('device, so an already-linked session will never receive them.');
+            console.log('To capture them, link again with this version running:');
+            console.log('    ./poll reset');
+            console.log('    ./poll pair <your number>');
+            console.log('Contacts are saved as they arrive during that first sync.');
+            console.log('Phone numbers always work and need none of this.');
         } else {
             console.log(`\n${names.length} contacts you can message by name:`);
             names.forEach(([jid, name]) => console.log(`  ${name}  (${jid.split('@')[0]})`));
@@ -494,6 +539,14 @@ async function main() {
     }
 
     if (listGroups) {
+        // A fresh link is the one chance to receive contacts, so don't close
+        // before that sync has had time to arrive.
+        if (freshLink) {
+            log('Newly linked - waiting for the contact sync before finishing...');
+            const synced = await waitForContactSync();
+            log(synced ? `Saved ${synced} contacts.` : 'No contacts were sent by this login.');
+        }
+
         const groups = await findGroups(sock);
         console.log('\nGroups this account can post to:');
         groups.forEach((g) => console.log(`  ${g.subject}`));

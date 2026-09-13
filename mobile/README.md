@@ -121,16 +121,26 @@ have both a group and a contact called "Alex", the group wins; write
 `{ "contact": "Alex" }` to force the person. Likewise `{ "group": ... }` forces
 the group.
 
-Messaging a contact by name needs the contact cache. Run this once while linked:
+Messaging a contact by name needs the contact cache — and there's a catch worth
+knowing: **WhatsApp only streams your address book while it syncs a newly linked
+device.** An already-linked session never receives it, so `./poll contacts` on an
+existing login will always come back empty.
+
+To capture contacts, link again with the contact cache in place:
 
 ```bash
-./poll contacts
+./poll reset
+./poll pair 27821234567
 ```
 
-It syncs your contacts, saves them to `contacts.json` and prints the names you
-can use. `contacts.json` is git-ignored — it holds real names and numbers, so it
-stays on your phone. WhatsApp doesn't always send the contact list; if yours
-comes back empty, use phone numbers, which always work.
+The first sync is saved automatically as it arrives (it can take a minute, and
+the bot waits for it). Afterwards, `./poll contacts` lists the names you can use.
+
+`contacts.json` is git-ignored — it holds real names and numbers, so it stays on
+your phone.
+
+None of this is required: **phone numbers always work**, with no sync, no cache
+and no re-linking.
 
 Recipients are de-duplicated, and each one gets the message in turn with a
 2-second gap. If one recipient fails — a wrong number, a group you've left —
