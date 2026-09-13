@@ -6,6 +6,7 @@
 #   ./poll jobs                list the jobs and their schedules
 #   ./poll groups              list your group names
 #   ./poll send "hi" "Mom"     send a one-off message to a group or number
+#   ./poll pair 27821234567    link WhatsApp using a pairing code
 set -e
 cd "$(dirname "$0")"
 [ -d node_modules ] || npm install
@@ -13,6 +14,7 @@ case "${1:-}" in
   now)    exec node bot.js --now ${2:+"$2"} ;;
   jobs)   exec node bot.js --list-jobs ;;
   groups) exec node bot.js --list-groups ;;
+  pair)   exec node bot.js --pair "$2" --list-groups ;;
   send)   exec node bot.js --send "$2" --to "$3" ;;   # "$3" may be a comma-separated list
   *)      exec node bot.js ;;
 esac

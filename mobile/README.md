@@ -50,10 +50,21 @@ conflict. Keep a copy of your jobs before pulling, or run
 **Option A — QR code.** A QR code prints in Termux. On another device open
 WhatsApp → Settings → Linked devices → Link a device, and scan it.
 
-**Option B — pairing code (easier with one phone).** Put your number in
-`pairing_phone_number` in `config.json` (country code, digits only, no `+`), run
-the bot, and it prints an 8-character code. In WhatsApp: Linked devices → Link
-with phone number → enter the code.
+**Option B — pairing code (easier with one phone).** Pass your number on the
+command line:
+
+```bash
+./poll pair 27722418086
+```
+
+It prints an 8-character code. In WhatsApp: Linked devices → Link with phone
+number → enter the code. Use your full international number (country code, no
+`+`) — spaces and `+` are stripped for you.
+
+Prefer not to retype it? Put it in `pairing_phone_number` in `config.json`
+instead. **But note `config.json` is tracked by git**, so a number left there can
+end up pushed to GitHub. `./poll pair` avoids that, as does the
+`WA_PAIR_NUMBER` environment variable.
 
 The session is saved in `auth_state/` and reused forever after.
 
@@ -65,6 +76,7 @@ The session is saved in `auth_state/` and reused forever after.
 ./poll now "Lift poll"     # send just one job, right now (works even if disabled)
 ./poll jobs                # list jobs, their targets and when they fire
 ./poll groups              # list your exact group names
+./poll pair 27821234567    # link WhatsApp via an 8-character pairing code
 ./poll send "Running late" "Mom"                      # one-off, no config edit
 ./poll send "Running late" "27821234567"              # one-off to a number
 ./poll send "Running late" "Mom,My Group,27821234567" # one-off to several at once

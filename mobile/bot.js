@@ -127,7 +127,9 @@ async function connect(config) {
     const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
     const { version } = await fetchLatestBaileysVersion();
 
-    const usePairingCode = !state.creds.registered && Boolean(config.pairing_phone_number);
+    // --pair beats config.json, so a personal number never has to be committed.
+    const pairNumber = config.pairingNumberOverride || config.pairing_phone_number;
+    const usePairingCode = !state.creds.registered && Boolean(pairNumber);
 
     const sock = makeWASocket({
         version,
@@ -144,7 +146,7 @@ async function connect(config) {
         // Baileys needs an open socket before it can ask for a pairing code.
         setTimeout(async () => {
             try {
-                const number = String(config.pairing_phone_number).replace(/[^0-9]/g, '');
+                const number = String(pairNumber).replace(/[^0-9]/g, '');
                 const code = await sock.requestPairingCode(number);
                 log(`Pairing code: ${code}  (WhatsApp > Linked devices > Link with phone number)`);
             } catch (err) {
@@ -333,6 +335,10 @@ async function closeAfterFlush(sock) {
 
 async function main() {
     const config = loadConfig();
+
+    // Keeps a personal number out of the tracked config file.
+    const pairFlag = flagValue('--pair');
+    config.pairingNumberOverride = pairFlag || process.env.WA_PAIR_NUMBER || '';
     const timezone = config.timezone || undefined;
 
     const listGroups = process.argv.includes('--list-groups');
