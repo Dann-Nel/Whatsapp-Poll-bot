@@ -73,6 +73,22 @@
       }
     },
     {
+      "name": "Message a contact by name",
+      "enabled": false,
+      "to": {
+        "contact": "Mom"
+      },
+      "message": {
+        "type": "text",
+        "text": "Morning! Just checking in. — sent automatically"
+      },
+      "schedule": {
+        "every": "weekly",
+        "day": "sunday",
+        "time": "09:00"
+      }
+    },
+    {
       "name": "Hourly reminder",
       "enabled": false,
       "to": {

@@ -82,6 +82,7 @@ The session is saved in `auth_state/` and reused forever after.
 ./poll now "Lift poll"     # send just one job, right now (works even if disabled)
 ./poll jobs                # list jobs, their targets and when they fire
 ./poll groups              # list your exact group names
+./poll contacts            # sync and list contacts you can message by name
 ./poll pair 27821234567    # link WhatsApp via an 8-character pairing code
 ./poll reset               # forget the saved login and link again
 ./poll send "Running late" "Mom"                      # one-off, no config edit
@@ -103,20 +104,33 @@ The session is saved in `auth_state/` and reused forever after.
 }
 ```
 
-**Who it goes to** — one recipient or many, groups and people freely mixed:
+**Who it goes to** — one recipient or many; groups, saved contacts and raw
+numbers freely mixed:
 
 ```json
-"to": "My Group"                                  // one group
-"to": "27821234567"                               // one person
-"to": ["My Group", "27821234567", "Other Group"]  // several, any mix
-"to": { "groups": ["A", "B"], "numbers": ["27821234567"] }   // explicit form
+"to": "My Group"                                  // a group
+"to": "Mom"                                       // a contact, by name
+"to": "27821234567"                               // a number, no contact needed
+"to": ["My Group", "Mom", "27821234567"]          // several, any mix
+"to": { "groups": ["A"], "contacts": ["Mom"], "numbers": ["27821234567"] }
 ```
 
-A bare string that looks like a phone number is treated as a person; anything
-else is treated as a group name. Use the explicit `{ "group": ... }` /
-`{ "number": ... }` form if a group name of yours looks like a number. Run
-`./poll groups` for your exact group names, and give numbers in full
-international form (`27821234567`, no `+` or spaces).
+A bare string that looks like a phone number is treated as a number. Any other
+bare string is looked up **as a group first, then as a contact** — so if you
+have both a group and a contact called "Alex", the group wins; write
+`{ "contact": "Alex" }` to force the person. Likewise `{ "group": ... }` forces
+the group.
+
+Messaging a contact by name needs the contact cache. Run this once while linked:
+
+```bash
+./poll contacts
+```
+
+It syncs your contacts, saves them to `contacts.json` and prints the names you
+can use. `contacts.json` is git-ignored — it holds real names and numbers, so it
+stays on your phone. WhatsApp doesn't always send the contact list; if yours
+comes back empty, use phone numbers, which always work.
 
 Recipients are de-duplicated, and each one gets the message in turn with a
 2-second gap. If one recipient fails — a wrong number, a group you've left —
@@ -160,6 +174,8 @@ the job and the problem, so typos never silently skip a send.
 ## Troubleshooting
 
 - **"Group not found"** — the error lists every group you're in; copy the name exactly.
+- **"is neither a group nor a contact"** — the error shows what it tried as
+  each. Run `./poll groups` and `./poll contacts` to see the exact names.
 - **"… is not a WhatsApp account"** — use the full international number with no
   `+` or spaces (`27821234567`, not `082 123 4567`).
 - **Nothing sends while the screen is off** — run `termux-wake-lock`, and exempt

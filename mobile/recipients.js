@@ -9,11 +9,14 @@
  *   "to": ["My Group", "27821234567"]
  *   "to": { "group": "My Group" }
  *   "to": { "number": "27821234567" }
+ *   "to": { "contact": "Mom" }
  *   "to": { "groups": ["A", "B"], "numbers": ["27821234567"] }
  *   "to": [{ "group": "A" }, { "number": "27821234567" }]
  */
 
-// A bare string is a number if it looks like a phone number, else a group name.
+// A bare string is a number if it looks like a phone number. Otherwise it is a
+// name, which could be a group or a contact - 'either' defers that decision to
+// send time, when both lists can actually be searched.
 const NUMBER_LIKE = /^\+?[0-9][0-9\s().-]{6,}$/;
 
 function classifyString(value, label) {
@@ -22,7 +25,7 @@ function classifyString(value, label) {
 
     return NUMBER_LIKE.test(text)
         ? { kind: 'number', value: text }
-        : { kind: 'group', value: text };
+        : { kind: 'either', value: text };
 }
 
 function normalizeEntry(entry, label) {
@@ -45,9 +48,13 @@ function normalizeEntry(entry, label) {
     if (entry.groups !== undefined) push('group', entry.groups);
     if (entry.number !== undefined) push('number', entry.number);
     if (entry.numbers !== undefined) push('number', entry.numbers);
+    if (entry.contact !== undefined) push('contact', entry.contact);
+    if (entry.contacts !== undefined) push('contact', entry.contacts);
 
     if (targets.length === 0) {
-        throw new Error(`${label}: "to" needs "group"/"groups" and/or "number"/"numbers"`);
+        throw new Error(
+            `${label}: "to" needs "group"/"groups", "contact"/"contacts" and/or "number"/"numbers"`
+        );
     }
 
     return targets;
@@ -76,6 +83,9 @@ function normalizeTargets(to, label) {
     });
 }
 
-const describeTarget = (target) => (target.kind === 'group' ? `group "${target.value}"` : target.value);
+const LABELS = { group: 'group', contact: 'contact', either: 'group or contact' };
+const describeTarget = (target) => (
+    target.kind === 'number' ? target.value : `${LABELS[target.kind]} "${target.value}"`
+);
 
 module.exports = { normalizeTargets, describeTarget, NUMBER_LIKE };

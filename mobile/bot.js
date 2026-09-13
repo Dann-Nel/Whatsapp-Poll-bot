@@ -16,6 +16,7 @@
  *   node bot.js --now "Lift poll"      send just that job once, now
  *   node bot.js --list-jobs            show the jobs and when they next fire
  *   node bot.js --list-groups          print the groups this account can post to
+ *   node bot.js --list-contacts        print contacts you can message by name
  *   node bot.js --send "hi" --to "Mom,My Group"   one-off, no config needed
  */
 
@@ -34,6 +35,7 @@ const {
 
 const { toCronExpression, describe } = require('./schedule');
 const { normalizeTargets, describeTarget } = require('./recipients');
+const contactStore = require('./contacts');
 
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 const AUTH_DIR = path.join(__dirname, 'auth_state');
@@ -147,6 +149,17 @@ async function connect(config, attempt = 1) {
     });
 
     sock.ev.on('creds.update', saveCreds);
+
+    // Contacts arrive as sync events after connecting; cache them so a later
+    // run can resolve a name without waiting for another sync.
+    const cacheContacts = (incoming) => {
+        if (!incoming || incoming.length === 0) return;
+        const cache = contactStore.load();
+        if (contactStore.merge(cache, incoming) > 0) contactStore.save(cache);
+    };
+    sock.ev.on('contacts.upsert', cacheContacts);
+    sock.ev.on('contacts.update', cacheContacts);
+    sock.ev.on('messaging-history.set', ({ contacts }) => cacheContacts(contacts));
 
     // Asking for a pairing code before the socket is ready yields a code
     // WhatsApp then refuses, so this waits for the first QR event - which is
@@ -286,10 +299,47 @@ async function resolveNumberId(sock, number) {
     return result.jid;
 }
 
-function resolveTarget(sock, target) {
-    return target.kind === 'group'
-        ? resolveGroupId(sock, target.value)
-        : resolveNumberId(sock, target.value);
+async function resolveContactId(name) {
+    const cache = contactStore.load();
+
+    if (Object.keys(cache).length === 0) {
+        throw new Error(
+            `No contacts cached yet, so "${name}" can't be looked up. ` +
+            "Run './poll contacts' once while linked, then try again."
+        );
+    }
+
+    const jid = contactStore.findByName(cache, name);
+    if (!jid) {
+        throw new Error(
+            `No contact named "${name}". Run './poll contacts' to see the list, ` +
+            'or use their phone number instead.'
+        );
+    }
+
+    return jid;
+}
+
+async function resolveTarget(sock, target) {
+    if (target.kind === 'group') return resolveGroupId(sock, target.value);
+    if (target.kind === 'contact') return resolveContactId(target.value);
+    if (target.kind === 'number') return resolveNumberId(sock, target.value);
+
+    // A bare name: prefer a group, fall back to a contact of that name, and if
+    // neither matches report both failures rather than only the last one.
+    try {
+        return await resolveGroupId(sock, target.value);
+    } catch (groupErr) {
+        try {
+            return await resolveContactId(target.value);
+        } catch (contactErr) {
+            throw new Error(
+                `"${target.value}" is neither a group nor a contact.\n` +
+                `  as a group:   ${groupErr.message.split('\n')[0]}\n` +
+                `  as a contact: ${contactErr.message}`
+            );
+        }
+    }
 }
 
 /* ------------------------------- sending ------------------------------ */
@@ -396,6 +446,7 @@ async function main() {
     }
 
     const listGroups = process.argv.includes('--list-groups');
+    const listContacts = process.argv.includes('--list-contacts');
     const listJobs = process.argv.includes('--list-jobs');
     const sendNow = process.argv.includes('--now');
     const adHocText = flagValue('--send');
@@ -420,6 +471,27 @@ async function main() {
 
     const sock = await connect(config);
     liveSocket = sock;
+
+    if (listContacts) {
+        // Contacts stream in just after connecting, so give the sync a moment.
+        log('Syncing contacts...');
+        await new Promise((resolve) => setTimeout(resolve, 8000));
+
+        const cache = contactStore.load();
+        const names = Object.entries(cache).sort((a, b) => a[1].localeCompare(b[1]));
+
+        if (names.length === 0) {
+            console.log('\nNo contacts synced. WhatsApp only sends them on some logins;');
+            console.log('try again, or just use phone numbers, which always work.');
+        } else {
+            console.log(`\n${names.length} contacts you can message by name:`);
+            names.forEach(([jid, name]) => console.log(`  ${name}  (${jid.split('@')[0]})`));
+        }
+
+        shuttingDown = true;
+        await sock.end();
+        return;
+    }
 
     if (listGroups) {
         const groups = await findGroups(sock);
