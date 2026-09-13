@@ -8,15 +8,15 @@
  * ./auth_state for every run after that.
  *
  * Each entry in config.json's "jobs" array is one scheduled message - a plain
- * text message or a native poll - aimed at a group or a phone number, repeating
- * hourly, daily, weekly, monthly, yearly, or on a raw cron expression.
+ * text message or a native poll - sent to any mix of groups and individual
+ * people, repeating hourly, daily, weekly, monthly, yearly, or on raw cron.
  *
  *   node bot.js                        run every enabled job on its schedule
  *   node bot.js --now                  send every enabled job once, now
  *   node bot.js --now "Lift poll"      send just that job once, now
  *   node bot.js --list-jobs            show the jobs and when they next fire
  *   node bot.js --list-groups          print the groups this account can post to
- *   node bot.js --send "hi" --to "Mom" send a one-off message, no config needed
+ *   node bot.js --send "hi" --to "Mom,My Group"   one-off, no config needed
  */
 
 const fs = require('fs');
@@ -32,10 +32,14 @@ const {
 } = require('@whiskeysockets/baileys');
 
 const { toCronExpression, describe } = require('./schedule');
+const { normalizeTargets, describeTarget } = require('./recipients');
 
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 const AUTH_DIR = path.join(__dirname, 'auth_state');
 const LOG_PATH = path.join(__dirname, 'bot.log');
+
+// Pause between recipients of one fan-out, so a burst doesn't look like spam.
+const SEND_GAP_MS = 2000;
 
 function log(message) {
     const line = `${new Date().toISOString()} - ${message}`;
@@ -77,12 +81,8 @@ function migrateLegacyConfig(config) {
 function validateJob(job, index) {
     const label = `jobs[${index}]${job.name ? ` ("${job.name}")` : ''}`;
 
-    if (!job.to || (!job.to.group && !job.to.number)) {
-        throw new Error(`${label}: "to" needs either a "group" name or a "number"`);
-    }
-    if (job.to.group && job.to.number) {
-        throw new Error(`${label}: "to" must have either "group" or "number", not both`);
-    }
+    // Accepts a single name/number or any mix of groups and people.
+    const targets = normalizeTargets(job.to, label);
 
     const message = job.message;
     if (!message || typeof message !== 'object') throw new Error(`${label}: a "message" block is required`);
@@ -103,7 +103,7 @@ function validateJob(job, index) {
     const expression = toCronExpression(job.schedule, label);
     if (!cron.validate(expression)) throw new Error(`${label}: "${expression}" is not a valid cron expression`);
 
-    return { ...job, name: job.name || `job ${index + 1}`, cronExpression: expression, label };
+    return { ...job, name: job.name || `job ${index + 1}`, targets, cronExpression: expression, label };
 }
 
 function loadConfig() {
@@ -238,8 +238,10 @@ async function resolveNumberId(sock, number) {
     return result.jid;
 }
 
-function resolveRecipient(sock, to) {
-    return to.group ? resolveGroupId(sock, to.group) : resolveNumberId(sock, to.number);
+function resolveTarget(sock, target) {
+    return target.kind === 'group'
+        ? resolveGroupId(sock, target.value)
+        : resolveNumberId(sock, target.value);
 }
 
 /* ------------------------------- sending ------------------------------ */
@@ -273,14 +275,30 @@ function buildMessage(message, timezone) {
 }
 
 async function runJob(sock, job, timezone) {
-    const target = job.to.group ? `group "${job.to.group}"` : job.to.number;
-    try {
-        const jid = await resolveRecipient(sock, job.to);
-        await sock.sendMessage(jid, buildMessage(job.message, timezone));
-        log(`Sent "${job.name}" to ${target}.`);
-    } catch (err) {
-        log(`FAILED "${job.name}" to ${target}: ${err.message}`);
-        throw err;
+    const payload = buildMessage(job.message, timezone);
+    const targets = job.targets;
+    let failures = 0;
+
+    for (const [index, target] of targets.entries()) {
+        const who = describeTarget(target);
+        try {
+            const jid = await resolveTarget(sock, target);
+            await sock.sendMessage(jid, payload);
+            log(`Sent "${job.name}" to ${who}.`);
+        } catch (err) {
+            // One bad recipient must not stop the rest of the list.
+            failures += 1;
+            log(`FAILED "${job.name}" to ${who}: ${err.message}`);
+        }
+
+        // Space out a fan-out; bursts of identical messages look like spam.
+        if (index < targets.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, SEND_GAP_MS));
+        }
+    }
+
+    if (failures) {
+        throw new Error(`"${job.name}": ${failures} of ${targets.length} recipient(s) failed`);
     }
 }
 
@@ -326,10 +344,9 @@ async function main() {
     if (listJobs) {
         console.log(`\n${config.jobs.length} job(s) in config.json:`);
         for (const job of config.jobs) {
-            const target = job.to.group ? `group "${job.to.group}"` : job.to.number;
             const state = job.enabled === false ? ' [disabled]' : '';
             console.log(`  ${job.name}${state}`);
-            console.log(`      to:       ${target}`);
+            console.log(`      to:       ${job.targets.map(describeTarget).join(', ')}`);
             console.log(`      type:     ${job.message.type ?? 'text'}`);
             console.log(`      schedule: ${describe(job.schedule)}  (cron: ${job.cronExpression})`);
         }
@@ -353,13 +370,13 @@ async function main() {
     }
 
     if (adHocText) {
-        // A bare number goes to a contact; anything else is treated as a group name.
-        const to = /^[+0-9][0-9\s-]{7,}$/.test(adHocTarget) ? { number: adHocTarget } : { group: adHocTarget };
+        // --to takes a comma-separated mix: "My Group,27821234567,Other Group".
+        const targets = normalizeTargets(adHocTarget.split(',').map((s) => s.trim()).filter(Boolean), '--to');
         await runJob(sock, {
             name: 'one-off message',
-            to,
+            targets,
             message: { type: 'text', text: adHocText },
-        }, timezone);
+        }, timezone).catch(() => { process.exitCode = 1; });
         await closeAfterFlush(sock);
         return;
     }

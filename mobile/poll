@@ -13,6 +13,6 @@ case "${1:-}" in
   now)    exec node bot.js --now ${2:+"$2"} ;;
   jobs)   exec node bot.js --list-jobs ;;
   groups) exec node bot.js --list-groups ;;
-  send)   exec node bot.js --send "$2" --to "$3" ;;
+  send)   exec node bot.js --send "$2" --to "$3" ;;   # "$3" may be a comma-separated list
   *)      exec node bot.js ;;
 esac

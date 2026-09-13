@@ -2,8 +2,9 @@
 
 Runs entirely on your Android phone in [Termux](https://f-droid.org/packages/com.termux/).
 No PC, no Chrome, no chromedriver — it speaks WhatsApp's own protocol, so it can
-send **plain messages and native polls**, to **groups or individual people**, on
-any repeat you like: hourly, daily, weekly, monthly, yearly, or raw cron.
+send **plain messages and native polls**, to **any mix of groups and individual
+people at once**, on any repeat you like: hourly, daily, weekly, monthly,
+yearly, or raw cron.
 
 > The original Windows/Selenium bot (`poll_sender.py` in the repo root) still
 > works on a desktop. This folder is the phone-runnable replacement.
@@ -45,8 +46,9 @@ The session is saved in `auth_state/` and reused forever after.
 ./poll now "Lift poll"     # send just one job, right now (works even if disabled)
 ./poll jobs                # list jobs, their targets and when they fire
 ./poll groups              # list your exact group names
-./poll send "Running late" "Mom"          # one-off message, no config edit
-./poll send "Running late" "27821234567"  # one-off to a number
+./poll send "Running late" "Mom"                      # one-off, no config edit
+./poll send "Running late" "27821234567"              # one-off to a number
+./poll send "Running late" "Mom,My Group,27821234567" # one-off to several at once
 ```
 
 ## Configuring jobs
@@ -63,12 +65,24 @@ The session is saved in `auth_state/` and reused forever after.
 }
 ```
 
-**Who it goes to** — exactly one of:
+**Who it goes to** — one recipient or many, groups and people freely mixed:
 
-| | |
-| --- | --- |
-| `"to": { "group": "My Group" }` | A group. Run `./poll groups` for exact names. |
-| `"to": { "number": "27821234567" }` | A person. Full international number, digits only, no `+`. |
+```json
+"to": "My Group"                                  // one group
+"to": "27821234567"                               // one person
+"to": ["My Group", "27821234567", "Other Group"]  // several, any mix
+"to": { "groups": ["A", "B"], "numbers": ["27821234567"] }   // explicit form
+```
+
+A bare string that looks like a phone number is treated as a person; anything
+else is treated as a group name. Use the explicit `{ "group": ... }` /
+`{ "number": ... }` form if a group name of yours looks like a number. Run
+`./poll groups` for your exact group names, and give numbers in full
+international form (`27821234567`, no `+` or spaces).
+
+Recipients are de-duplicated, and each one gets the message in turn with a
+2-second gap. If one recipient fails — a wrong number, a group you've left —
+it's logged and the rest still go out.
 
 **What it sends** — `message.type` is `text` or `poll`:
 
