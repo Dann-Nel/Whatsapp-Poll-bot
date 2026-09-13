@@ -47,8 +47,14 @@ conflict. Keep a copy of your jobs before pulling, or run
 ./poll groups
 ```
 
-**Option A — QR code.** A QR code prints in Termux. On another device open
-WhatsApp → Settings → Linked devices → Link a device, and scan it.
+**Option A — QR code (most reliable).** A QR code prints in Termux. You need a
+*second* screen to display it, because the phone holding the WhatsApp account is
+the one doing the scanning — you can't scan your own screen. Easiest routes:
+
+- Run `./poll groups` on a PC (Node + this repo) and scan that screen with your
+  phone. Then copy the resulting `auth_state/` folder to the phone — the login
+  is portable, so you only have to link once.
+- Or open a terminal on any second device and scan from there.
 
 **Option B — pairing code (easier with one phone).** Pass your number on the
 command line:
@@ -166,9 +172,10 @@ the job and the problem, so typos never silently skip a send.
   to finish logging in..." followed by "Connected to WhatsApp."
 - **"Couldn't link device" when entering a pairing code** — the code expires in
   about a minute, so have WhatsApp open on the Enter-code screen *before* you
-  run `./poll pair`. If it still fails, run `./poll reset` to clear any
-  half-finished login, then try again — or use the QR method, which is more
-  forgiving.
+  run `./poll pair`. Run `./poll reset` between attempts to clear the
+  half-finished login, or the next try inherits it and fails again. Pairing
+  codes are simply less reliable than QR; if a few attempts fail, use the QR
+  method instead — see below.
 - **Bot stops when you close Termux** — Termux must stay in the notification tray.
 
 Activity is appended to `bot.log`.

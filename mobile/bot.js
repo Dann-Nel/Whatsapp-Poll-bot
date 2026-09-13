@@ -30,7 +30,7 @@ const {
     fetchLatestBaileysVersion,
     DisconnectReason,
     Browsers,
-} = require('@whiskeysockets/baileys');
+} = require('baileys');
 
 const { toCronExpression, describe } = require('./schedule');
 const { normalizeTargets, describeTarget } = require('./recipients');
