@@ -182,7 +182,13 @@ Activity is appended to `bot.log`.
 
 ## Note
 
-This uses an unofficial WhatsApp client library. Don't use it to spam — sending
+This uses an unofficial WhatsApp client library, pinned to an exact version
+(`baileys` 7.0.0-rc14). **Don't bump it casually.** The `baileys` 6.17.x line
+carries a published message-spoofing advisory
+([GHSA-qvv5-jq5g-4cgg](https://github.com/WhiskeySockets/Baileys/security/advisories/GHSA-qvv5-jq5g-4cgg))
+despite its higher-looking version number; safe lines are 6.7.22+ and
+7.0.0-rc12+. If `npm install` ever prints a deprecation notice naming a
+vulnerability, stop and check the advisory rather than linking your account. Don't use it to spam — sending
 frequent automated messages, especially to people who didn't ask for them, is a
 good way to get a number banned. Scheduled messages to your own group and to
 people expecting them is what it's built for.
