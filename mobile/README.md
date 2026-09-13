@@ -77,6 +77,7 @@ The session is saved in `auth_state/` and reused forever after.
 ./poll jobs                # list jobs, their targets and when they fire
 ./poll groups              # list your exact group names
 ./poll pair 27821234567    # link WhatsApp via an 8-character pairing code
+./poll reset               # forget the saved login and link again
 ./poll send "Running late" "Mom"                      # one-off, no config edit
 ./poll send "Running late" "27821234567"              # one-off to a number
 ./poll send "Running late" "Mom,My Group,27821234567" # one-off to several at once
@@ -158,6 +159,11 @@ the job and the problem, so typos never silently skip a send.
 - **Nothing sends while the screen is off** — run `termux-wake-lock`, and exempt
   Termux from battery optimisation in Android settings.
 - **"Logged out on the phone"** — you unlinked the device. Run `./poll groups` and re-link.
+- **"Couldn't link device" when entering a pairing code** — the code expires in
+  about a minute, so have WhatsApp open on the Enter-code screen *before* you
+  run `./poll pair`. If it still fails, run `./poll reset` to clear any
+  half-finished login, then try again — or use the QR method, which is more
+  forgiving.
 - **Bot stops when you close Termux** — Termux must stay in the notification tray.
 
 Activity is appended to `bot.log`.

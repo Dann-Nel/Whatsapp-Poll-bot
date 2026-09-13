@@ -29,6 +29,7 @@ const {
     useMultiFileAuthState,
     fetchLatestBaileysVersion,
     DisconnectReason,
+    Browsers,
 } = require('@whiskeysockets/baileys');
 
 const { toCronExpression, describe } = require('./schedule');
@@ -136,23 +137,30 @@ async function connect(config) {
         auth: state,
         // QR is printed by hand below so the pairing-code path can suppress it.
         printQRInTerminal: false,
-        browser: ['Poll Bot', 'Chrome', '1.0.0'],
+        // Pairing codes are rejected for some browser identities; this one is
+        // the combination WhatsApp reliably accepts for a linked device.
+        browser: Browsers.ubuntu('Chrome'),
         logger: pino({ level: 'silent' }),
     });
 
     sock.ev.on('creds.update', saveCreds);
 
-    if (usePairingCode) {
-        // Baileys needs an open socket before it can ask for a pairing code.
-        setTimeout(async () => {
-            try {
-                const number = String(pairNumber).replace(/[^0-9]/g, '');
-                const code = await sock.requestPairingCode(number);
-                log(`Pairing code: ${code}  (WhatsApp > Linked devices > Link with phone number)`);
-            } catch (err) {
-                log(`Could not request a pairing code: ${err.message}`);
-            }
-        }, 3000);
+    // Asking for a pairing code before the socket is ready yields a code
+    // WhatsApp then refuses, so this waits for the first QR event - which is
+    // WhatsApp saying it is ready to link - rather than guessing with a timer.
+    let pairingRequested = false;
+    async function requestPairingCode() {
+        if (pairingRequested) return;
+        pairingRequested = true;
+        try {
+            const number = String(pairNumber).replace(/[^0-9]/g, '');
+            const code = await sock.requestPairingCode(number);
+            log(`Pairing code: ${code}`);
+            log('Enter it NOW in WhatsApp > Linked devices > Link with phone number.');
+            log('It expires in about a minute; rerun this command for a fresh one.');
+        } catch (err) {
+            log(`Could not request a pairing code: ${err.message}`);
+        }
     }
 
     // Resolves once we are logged in; rejects if the login is permanently refused.
@@ -162,9 +170,14 @@ async function connect(config) {
         sock.ev.on('connection.update', (update) => {
             const { connection, lastDisconnect, qr } = update;
 
-            if (qr && !usePairingCode) {
-                log('Scan this QR code with WhatsApp > Linked devices > Link a device');
-                qrcode.generate(qr, { small: true });
+            if (qr) {
+                if (usePairingCode) {
+                    // The socket is ready to link; now the code will be accepted.
+                    requestPairingCode();
+                } else {
+                    log('Scan this QR code with WhatsApp > Linked devices > Link a device');
+                    qrcode.generate(qr, { small: true });
+                }
             }
 
             if (connection === 'open' && !settled) {
@@ -340,6 +353,13 @@ async function main() {
     const pairFlag = flagValue('--pair');
     config.pairingNumberOverride = pairFlag || process.env.WA_PAIR_NUMBER || '';
     const timezone = config.timezone || undefined;
+
+    // Half-finished logins leave state behind that makes later attempts fail.
+    if (process.argv.includes('--reset')) {
+        fs.rmSync(AUTH_DIR, { recursive: true, force: true });
+        log('Cleared the saved login. The next run will ask you to link again.');
+        return;
+    }
 
     const listGroups = process.argv.includes('--list-groups');
     const listJobs = process.argv.includes('--list-jobs');
