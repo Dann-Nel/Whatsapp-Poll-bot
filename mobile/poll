@@ -1,0 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+# One-command launcher for Termux: ./poll        -> run on schedule
+#                                  ./poll now    -> send the poll right now
+#                                  ./poll groups -> list your group names
+set -e
+cd "$(dirname "$0")"
+[ -d node_modules ] || npm install
+case "${1:-}" in
+  now)    exec node bot.js --now ;;
+  groups) exec node bot.js --list-groups ;;
+  *)      exec node bot.js ;;
+esac
