@@ -1,5 +1,5 @@
 /**
- * WhatsApp Poll Bot - mobile edition.
+ * WhatsApp scheduled-message bot - mobile edition.
  *
  * Runs anywhere Node runs, including Termux on Android: it talks to WhatsApp
  * over the same WebSocket protocol the phone app uses, so there is no Chrome
@@ -7,9 +7,16 @@
  * entering an 8-character pairing code), and the session is stored in
  * ./auth_state for every run after that.
  *
- *   node bot.js                 start the scheduler and wait for the poll time
- *   node bot.js --now           send the poll immediately, then exit
- *   node bot.js --list-groups   print the groups this account can post to
+ * Each entry in config.json's "jobs" array is one scheduled message - a plain
+ * text message or a native poll - aimed at a group or a phone number, repeating
+ * hourly, daily, weekly, monthly, yearly, or on a raw cron expression.
+ *
+ *   node bot.js                        run every enabled job on its schedule
+ *   node bot.js --now                  send every enabled job once, now
+ *   node bot.js --now "Lift poll"      send just that job once, now
+ *   node bot.js --list-jobs            show the jobs and when they next fire
+ *   node bot.js --list-groups          print the groups this account can post to
+ *   node bot.js --send "hi" --to "Mom" send a one-off message, no config needed
  */
 
 const fs = require('fs');
@@ -24,11 +31,11 @@ const {
     DisconnectReason,
 } = require('@whiskeysockets/baileys');
 
+const { toCronExpression, describe } = require('./schedule');
+
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 const AUTH_DIR = path.join(__dirname, 'auth_state');
-const LOG_PATH = path.join(__dirname, 'poll_bot.log');
-
-const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+const LOG_PATH = path.join(__dirname, 'bot.log');
 
 function log(message) {
     const line = `${new Date().toISOString()} - ${message}`;
@@ -40,6 +47,65 @@ function log(message) {
     }
 }
 
+/* ------------------------------- config ------------------------------- */
+
+// The first version of this bot had a single poll at the top level of
+// config.json. Older configs keep working by being folded into one job.
+function migrateLegacyConfig(config) {
+    if (Array.isArray(config.jobs)) return config;
+    if (!config.poll_question) return { ...config, jobs: [] };
+
+    log('config.json uses the old single-poll format; treating it as one job.');
+    return {
+        timezone: config.timezone,
+        pairing_phone_number: config.pairing_phone_number,
+        jobs: [{
+            name: 'Poll',
+            enabled: true,
+            to: { group: config.group_name },
+            message: {
+                type: 'poll',
+                question: config.poll_question,
+                options: config.poll_options,
+                allow_multiple_answers: config.allow_multiple_answers,
+            },
+            schedule: { every: 'weekly', day: config.schedule_day, time: config.schedule_time },
+        }],
+    };
+}
+
+function validateJob(job, index) {
+    const label = `jobs[${index}]${job.name ? ` ("${job.name}")` : ''}`;
+
+    if (!job.to || (!job.to.group && !job.to.number)) {
+        throw new Error(`${label}: "to" needs either a "group" name or a "number"`);
+    }
+    if (job.to.group && job.to.number) {
+        throw new Error(`${label}: "to" must have either "group" or "number", not both`);
+    }
+
+    const message = job.message;
+    if (!message || typeof message !== 'object') throw new Error(`${label}: a "message" block is required`);
+
+    const type = String(message.type ?? 'text').toLowerCase();
+    if (type === 'text') {
+        if (!String(message.text ?? '').trim()) throw new Error(`${label}: a text message needs "text"`);
+    } else if (type === 'poll') {
+        const options = message.options || [];
+        if (!String(message.question ?? '').trim()) throw new Error(`${label}: a poll needs a "question"`);
+        if (options.length < 2) throw new Error(`${label}: a poll needs at least 2 "options"`);
+        if (options.length > 12) throw new Error(`${label}: WhatsApp allows at most 12 poll options`);
+    } else {
+        throw new Error(`${label}: "message.type" must be "text" or "poll", got "${message.type}"`);
+    }
+
+    // Throws if the schedule is malformed, so typos surface before we log in.
+    const expression = toCronExpression(job.schedule, label);
+    if (!cron.validate(expression)) throw new Error(`${label}: "${expression}" is not a valid cron expression`);
+
+    return { ...job, name: job.name || `job ${index + 1}`, cronExpression: expression, label };
+}
+
 function loadConfig() {
     let raw;
     try {
@@ -48,34 +114,14 @@ function loadConfig() {
         throw new Error(`config.json not found at ${CONFIG_PATH}`);
     }
 
-    const config = JSON.parse(raw);
-    const options = config.poll_options || [];
+    const config = migrateLegacyConfig(JSON.parse(raw));
+    if (!Array.isArray(config.jobs)) throw new Error('config.json: "jobs" must be an array');
 
-    if (!config.group_name) throw new Error('config.json: "group_name" is required');
-    if (!config.poll_question) throw new Error('config.json: "poll_question" is required');
-    if (options.length < 2) throw new Error('config.json: "poll_options" needs at least 2 options');
-    if (options.length > 12) throw new Error('config.json: WhatsApp allows at most 12 poll options');
-
+    config.jobs = config.jobs.map(validateJob);
     return config;
 }
 
-// Turn schedule_day / schedule_time from config.json into a cron expression.
-function toCronExpression(day, time) {
-    const match = /^(\d{1,2}):(\d{2})$/.exec(String(time || '').trim());
-    if (!match) throw new Error(`config.json: "schedule_time" must look like "09:00", got "${time}"`);
-
-    const hour = Number(match[1]);
-    const minute = Number(match[2]);
-    if (hour > 23 || minute > 59) throw new Error(`config.json: "schedule_time" is not a real time: "${time}"`);
-
-    const wanted = String(day || '').trim().toLowerCase();
-    const dayField = wanted === 'daily' || wanted === 'every day' ? '*' : DAYS.indexOf(wanted);
-    if (dayField === -1) {
-        throw new Error(`config.json: "schedule_day" must be a weekday name or "daily", got "${day}"`);
-    }
-
-    return `${minute} ${hour} * * ${dayField}`;
-}
+/* ----------------------------- connection ----------------------------- */
 
 async function connect(config) {
     const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
@@ -127,9 +173,8 @@ async function connect(config) {
 
             if (connection === 'close') {
                 const status = lastDisconnect?.error?.output?.statusCode;
-                const loggedOut = status === DisconnectReason.loggedOut;
 
-                if (loggedOut) {
+                if (status === DisconnectReason.loggedOut) {
                     // The stored session is dead; drop it so the next run shows a fresh QR.
                     fs.rmSync(AUTH_DIR, { recursive: true, force: true });
                     const err = new Error('Logged out on the phone. Run the bot again and link it once more.');
@@ -141,12 +186,19 @@ async function connect(config) {
                 log(`Connection closed (${status ?? 'unknown reason'}), reconnecting...`);
                 if (settled) {
                     // Re-establish in the background so the scheduler keeps working.
-                    connect(config).catch((err) => log(`Reconnect failed: ${err.message}`));
+                    connect(config)
+                        .then((fresh) => { liveSocket = fresh; })
+                        .catch((err) => log(`Reconnect failed: ${err.message}`));
                 }
             }
         });
     });
 }
+
+// Scheduled jobs read through this so they pick up post-reconnect sockets.
+let liveSocket = null;
+
+/* ------------------------------ recipients ---------------------------- */
 
 async function findGroups(sock) {
     const groups = await sock.groupFetchAllParticipating();
@@ -173,29 +225,124 @@ async function resolveGroupId(sock, groupName) {
     );
 }
 
-async function sendPoll(sock, config) {
-    const groupId = await resolveGroupId(sock, config.group_name);
+async function resolveNumberId(sock, number) {
+    // WhatsApp wants the full international number without "+" or separators.
+    const digits = String(number).replace(/[^0-9]/g, '');
+    if (digits.length < 8) {
+        throw new Error(`"${number}" does not look like a full international number (e.g. 27821234567)`);
+    }
 
-    await sock.sendMessage(groupId, {
-        poll: {
-            name: config.poll_question,
-            values: config.poll_options,
-            selectableCount: config.allow_multiple_answers ? config.poll_options.length : 1,
-        },
-    });
+    const [result] = await sock.onWhatsApp(`${digits}@s.whatsapp.net`);
+    if (!result?.exists) throw new Error(`${digits} is not a WhatsApp account`);
 
-    log(`Poll sent to "${config.group_name}".`);
+    return result.jid;
+}
+
+function resolveRecipient(sock, to) {
+    return to.group ? resolveGroupId(sock, to.group) : resolveNumberId(sock, to.number);
+}
+
+/* ------------------------------- sending ------------------------------ */
+
+// Lets a daily message say "Good morning, it's Tuesday the 3rd" without code.
+function expandPlaceholders(text, timezone) {
+    const now = new Date();
+    const locale = 'en-GB';
+    const part = (options) => new Intl.DateTimeFormat(locale, { timeZone: timezone, ...options }).format(now);
+
+    return String(text)
+        .replace(/\{date\}/g, part({ dateStyle: 'long' }))
+        .replace(/\{time\}/g, part({ hour: '2-digit', minute: '2-digit', hour12: false }))
+        .replace(/\{day\}/g, part({ weekday: 'long' }))
+        .replace(/\{month\}/g, part({ month: 'long' }))
+        .replace(/\{year\}/g, part({ year: 'numeric' }));
+}
+
+function buildMessage(message, timezone) {
+    if (String(message.type ?? 'text').toLowerCase() === 'poll') {
+        return {
+            poll: {
+                name: expandPlaceholders(message.question, timezone),
+                values: message.options,
+                selectableCount: message.allow_multiple_answers ? message.options.length : 1,
+            },
+        };
+    }
+
+    return { text: expandPlaceholders(message.text, timezone) };
+}
+
+async function runJob(sock, job, timezone) {
+    const target = job.to.group ? `group "${job.to.group}"` : job.to.number;
+    try {
+        const jid = await resolveRecipient(sock, job.to);
+        await sock.sendMessage(jid, buildMessage(job.message, timezone));
+        log(`Sent "${job.name}" to ${target}.`);
+    } catch (err) {
+        log(`FAILED "${job.name}" to ${target}: ${err.message}`);
+        throw err;
+    }
+}
+
+/* -------------------------------- CLI --------------------------------- */
+
+function flagValue(name) {
+    const index = process.argv.indexOf(name);
+    if (index === -1) return null;
+    const value = process.argv[index + 1];
+    return value && !value.startsWith('--') ? value : '';
+}
+
+function selectJobs(jobs, wantedName) {
+    const enabled = jobs.filter((job) => job.enabled !== false);
+
+    if (!wantedName) return enabled;
+
+    const wanted = wantedName.trim().toLowerCase();
+    // Name a job explicitly and it runs even if it is disabled in config.
+    const matches = jobs.filter((job) => job.name.toLowerCase() === wanted);
+    if (matches.length === 0) {
+        throw new Error(`No job named "${wantedName}". Known jobs: ${jobs.map((j) => j.name).join(', ')}`);
+    }
+    return matches;
+}
+
+async function closeAfterFlush(sock) {
+    // Give WhatsApp a moment to flush outgoing messages before closing.
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await sock.end();
 }
 
 async function main() {
     const config = loadConfig();
-    const sendNow = process.argv.includes('--now');
-    const listGroups = process.argv.includes('--list-groups');
+    const timezone = config.timezone || undefined;
 
-    // Validate the schedule before logging in, so a typo fails instantly.
-    const cronExpression = sendNow || listGroups ? null : toCronExpression(config.schedule_day, config.schedule_time);
+    const listGroups = process.argv.includes('--list-groups');
+    const listJobs = process.argv.includes('--list-jobs');
+    const sendNow = process.argv.includes('--now');
+    const adHocText = flagValue('--send');
+    const adHocTarget = flagValue('--to');
+
+    if (listJobs) {
+        console.log(`\n${config.jobs.length} job(s) in config.json:`);
+        for (const job of config.jobs) {
+            const target = job.to.group ? `group "${job.to.group}"` : job.to.number;
+            const state = job.enabled === false ? ' [disabled]' : '';
+            console.log(`  ${job.name}${state}`);
+            console.log(`      to:       ${target}`);
+            console.log(`      type:     ${job.message.type ?? 'text'}`);
+            console.log(`      schedule: ${describe(job.schedule)}  (cron: ${job.cronExpression})`);
+        }
+        return;
+    }
+
+    if (adHocText !== null) {
+        if (!adHocText) throw new Error('--send needs a message, e.g. --send "hello" --to "Mom"');
+        if (!adHocTarget) throw new Error('--send also needs --to "<group name or number>"');
+    }
 
     const sock = await connect(config);
+    liveSocket = sock;
 
     if (listGroups) {
         const groups = await findGroups(sock);
@@ -205,24 +352,42 @@ async function main() {
         return;
     }
 
-    if (sendNow) {
-        await sendPoll(sock, config);
-        // Give WhatsApp a moment to flush the outgoing message before closing.
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        await sock.end();
+    if (adHocText) {
+        // A bare number goes to a contact; anything else is treated as a group name.
+        const to = /^[+0-9][0-9\s-]{7,}$/.test(adHocTarget) ? { number: adHocTarget } : { group: adHocTarget };
+        await runJob(sock, {
+            name: 'one-off message',
+            to,
+            message: { type: 'text', text: adHocText },
+        }, timezone);
+        await closeAfterFlush(sock);
         return;
     }
 
-    log(`Scheduled: every ${config.schedule_day} at ${config.schedule_time} (${config.timezone || 'system time'}).`);
-    log('Leave this running. Press Ctrl+C to stop.');
-
-    cron.schedule(cronExpression, async () => {
-        try {
-            await sendPoll(sock, config);
-        } catch (err) {
-            log(`Failed to send the poll: ${err.message}`);
+    if (sendNow) {
+        const jobs = selectJobs(config.jobs, flagValue('--now'));
+        let failures = 0;
+        for (const job of jobs) {
+            await runJob(sock, job, timezone).catch(() => { failures += 1; });
         }
-    }, config.timezone ? { timezone: config.timezone } : undefined);
+        await closeAfterFlush(sock);
+        if (failures) process.exitCode = 1;
+        return;
+    }
+
+    const jobs = selectJobs(config.jobs);
+    if (jobs.length === 0) throw new Error('No enabled jobs in config.json. Nothing to schedule.');
+
+    for (const job of jobs) {
+        cron.schedule(job.cronExpression, () => {
+            // liveSocket, not sock: a reconnect swaps the socket underneath us.
+            runJob(liveSocket, job, timezone).catch(() => { /* already logged */ });
+        }, timezone ? { timezone } : undefined);
+
+        log(`Scheduled "${job.name}" ${describe(job.schedule)}${timezone ? ` (${timezone})` : ''}.`);
+    }
+
+    log('Leave this running. Press Ctrl+C to stop.');
 }
 
 main().catch((err) => {

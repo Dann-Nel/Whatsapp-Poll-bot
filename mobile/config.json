@@ -1,16 +1,60 @@
 {
-  "group_name": "Quintin & Nikita’s Community",
-  "poll_question": "Need Lift? Please try and keep the poll up to date",
-  "poll_options": [
-    "I need a lift for 1 person",
-    "I need a lift for 2 people",
-    "I need a lift for 3 people",
-    "I need a lift for 4 people",
-    "I am sorted with a lift"
-  ],
-  "allow_multiple_answers": false,
-  "schedule_day": "monday",
-  "schedule_time": "09:00",
   "timezone": "Africa/Johannesburg",
-  "pairing_phone_number": ""
+  "pairing_phone_number": "",
+
+  "jobs": [
+    {
+      "name": "Lift poll",
+      "enabled": true,
+      "to": { "group": "Quintin & Nikita’s Community" },
+      "message": {
+        "type": "poll",
+        "question": "Need Lift? Please try and keep the poll up to date",
+        "options": [
+          "I need a lift for 1 person",
+          "I need a lift for 2 people",
+          "I need a lift for 3 people",
+          "I need a lift for 4 people",
+          "I am sorted with a lift"
+        ],
+        "allow_multiple_answers": false
+      },
+      "schedule": { "every": "weekly", "day": "monday", "time": "09:00" }
+    },
+    {
+      "name": "Hourly reminder",
+      "enabled": false,
+      "to": { "number": "27821234567" },
+      "message": { "type": "text", "text": "Stand up and stretch. It's {time}." },
+      "schedule": { "every": "hourly", "minute": 0 }
+    },
+    {
+      "name": "Good morning",
+      "enabled": false,
+      "to": { "number": "27821234567" },
+      "message": { "type": "text", "text": "Good morning! Happy {day}, {date}." },
+      "schedule": { "every": "daily", "time": "07:30" }
+    },
+    {
+      "name": "Rent reminder",
+      "enabled": false,
+      "to": { "number": "27821234567" },
+      "message": { "type": "text", "text": "Reminder: rent is due today ({date})." },
+      "schedule": { "every": "monthly", "day_of_month": 1, "time": "08:00" }
+    },
+    {
+      "name": "Birthday wish",
+      "enabled": false,
+      "to": { "number": "27821234567" },
+      "message": { "type": "text", "text": "Happy birthday! 🎉" },
+      "schedule": { "every": "yearly", "month": "june", "day_of_month": 14, "time": "08:00" }
+    },
+    {
+      "name": "Custom cron example",
+      "enabled": false,
+      "to": { "group": "Quintin & Nikita’s Community" },
+      "message": { "type": "text", "text": "Weekday stand-up in 15 minutes." },
+      "schedule": { "every": "cron", "expression": "45 8 * * 1-5" }
+    }
+  ]
 }
