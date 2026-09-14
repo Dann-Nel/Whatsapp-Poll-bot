@@ -1,0 +1,19 @@
+{
+  "name": "whatsapp-poll-bot-mobile",
+  "version": "1.0.0",
+  "description": "Phone-runnable WhatsApp scheduled-message and poll bot (Termux friendly, no browser required)",
+  "main": "bot.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node bot.js",
+    "now": "node bot.js --now",
+    "jobs": "node bot.js --list-jobs",
+    "groups": "node bot.js --list-groups"
+  },
+  "dependencies": {
+    "baileys": "7.0.0-rc14",
+    "node-cron": "^3.0.3",
+    "pino": "^9.5.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}

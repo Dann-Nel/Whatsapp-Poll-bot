@@ -1,0 +1,16 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Home-screen icon: is it running, and what has it done lately?
+cd ~/Whatsapp-Poll-bot/mobile || exit 1
+
+PIDFILE="$HOME/.wapoll.pid"
+if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+  echo "RUNNING (pid $(cat "$PIDFILE"))"
+else
+  echo "NOT RUNNING"
+fi
+
+echo
+node bot.js --list-jobs
+echo
+echo "--- last 10 log lines ---"
+tail -n 10 bot.log 2>/dev/null || echo "(no log yet)"

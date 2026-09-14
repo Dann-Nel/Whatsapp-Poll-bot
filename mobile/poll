@@ -1,0 +1,24 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+# One-command launcher for Termux.
+#   ./poll                     run every enabled job on its schedule
+#   ./poll now                 send every enabled job once, right now
+#   ./poll now "Lift poll"     send just that job once, right now
+#   ./poll jobs                list the jobs and their schedules
+#   ./poll groups              list your group names
+#   ./poll contacts            list contacts you can message by name
+#   ./poll send "hi" "Mom"     send a one-off message to a group or number
+#   ./poll pair 27821234567    link WhatsApp using a pairing code
+#   ./poll reset               forget the saved login and link again
+set -e
+cd "$(dirname "$0")"
+[ -d node_modules ] || npm install
+case "${1:-}" in
+  now)    exec node bot.js --now ${2:+"$2"} ;;
+  jobs)   exec node bot.js --list-jobs ;;
+  groups) exec node bot.js --list-groups ;;
+  contacts) exec node bot.js --list-contacts ;;
+  pair)   exec node bot.js --pair "$2" --list-groups ;;
+  reset)  exec node bot.js --reset ;;
+  send)   exec node bot.js --send "$2" --to "$3" ;;   # "$3" may be a comma-separated list
+  *)      exec node bot.js ;;
+esac

@@ -1,0 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Home-screen icon: run all scheduled jobs in the background, surviving the
+# terminal being closed. Tapping again while it runs does nothing.
+cd ~/Whatsapp-Poll-bot/mobile || exit 1
+
+PIDFILE="$HOME/.wapoll.pid"
+if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+  echo "Scheduler is already running (pid $(cat "$PIDFILE"))."
+  exit 0
+fi
+
+termux-wake-lock
+nohup node bot.js >> bot.log 2>&1 &
+echo $! > "$PIDFILE"
+echo "Scheduler started (pid $!). It keeps running in the background."
