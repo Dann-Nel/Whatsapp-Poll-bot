@@ -1,0 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Home-screen icon: stop the background scheduler.
+PIDFILE="$HOME/.wapoll.pid"
+
+if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+  kill "$(cat "$PIDFILE")"
+  rm -f "$PIDFILE"
+  echo "Scheduler stopped."
+else
+  # No pidfile, or a stale one: fall back to killing any bot process.
+  pkill -f "node bot.js" && echo "Scheduler stopped." || echo "Scheduler was not running."
+  rm -f "$PIDFILE"
+fi
+
+termux-wake-unlock

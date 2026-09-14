@@ -1,0 +1,6 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Home-screen icon: post the lift poll to the group immediately.
+cd ~/Whatsapp-Poll-bot/mobile || exit 1
+termux-wake-lock
+node bot.js --now "Lift poll"
+termux-wake-unlock

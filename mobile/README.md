@@ -74,6 +74,46 @@ end up pushed to GitHub. `./poll pair` avoids that, as does the
 
 The session is saved in `auth_state/` and reused forever after.
 
+## Home-screen icons (no typing)
+
+Rather than opening Termux and typing, you can tap an icon on your home screen.
+
+Install **Termux:Widget** from F-Droid (where you got Termux), then run once:
+
+```bash
+cd ~/Whatsapp-Poll-bot/mobile
+bash install-app.sh
+```
+
+Long-press your home screen -> **Widgets** -> **Termux** -> drag on the *Termux
+shortcut* widget, and pick a script. Each gets its own icon:
+
+| Icon | What tapping it does |
+| --- | --- |
+| **Send Lift Poll** | Posts the lift poll to the group right now |
+| **Start Scheduler** | Runs all jobs on schedule, in the background |
+| **Stop Scheduler** | Stops it |
+| **Scheduler Status** | Running or not, the job list, and recent log lines |
+
+The scheduler keeps running after you close Termux, holds a wake lock so Android
+doesn't suspend it, and refuses to start twice.
+
+**Auto-start after a reboot:** also install **Termux:Boot** from F-Droid and open
+it once so Android grants permission. `install-app.sh` has already placed the
+startup script; a reboot will then bring the scheduler back by itself.
+
+To add an icon for a job of your own, copy one of the files in `shortcuts/`,
+change the job name inside, and re-run `install-app.sh`.
+
+### Why not a single installable APK?
+
+A standalone `.apk` would mean embedding a Node runtime in an Android app
+(nodejs-mobile) and rebuilding Baileys' native crypto and protobuf modules for
+Android - a substantial project with its own maintenance burden, and one that
+breaks whenever those native modules change. Termux plus Termux:Widget gives the
+same thing in practice: real home-screen icons, background running, and
+start-on-boot, using an app store build that someone else maintains.
+
 ## Daily use
 
 ```bash
